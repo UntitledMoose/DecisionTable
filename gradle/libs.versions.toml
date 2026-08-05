@@ -1,0 +1,8 @@
+[versions]
+ftcSDK = "11.2.1"
+
+[libraries]
+ftccommon = { module = "org.firstinspires.ftc:FtcCommon", version.ref = "ftcSDK" }
+hardware = { module = "org.firstinspires.ftc:Hardware", version.ref = "ftcSDK" }
+robotserver = { module = "org.firstinspires.ftc:RobotServer", version.ref = "ftcSDK" }
+robotcore = { module = "org.firstinspires.ftc:RobotCore", version.ref = "ftcSDK" }
