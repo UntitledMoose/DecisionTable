@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class XmlElements {
-    private XmlElements() {
-    }
-
     public static List<Element> childElements(Element parent) {
         List<Element> elements = new ArrayList<>();
         NodeList children = parent.getChildNodes();

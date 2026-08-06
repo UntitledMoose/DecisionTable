@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
-import org.megaknytes.decisiontable.core.utils.UpdatableDevice;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.utils.device.UpdatableDevice;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
 public class TankDrive implements HardwareMapDevice, UpdatableDevice {

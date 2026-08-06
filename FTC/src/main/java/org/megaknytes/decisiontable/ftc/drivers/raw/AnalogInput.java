@@ -2,7 +2,7 @@ package org.megaknytes.decisiontable.ftc.drivers.raw;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
 public class AnalogInput implements HardwareMapDevice {

@@ -3,7 +3,7 @@ package org.megaknytes.decisiontable.ftc.drivers.raw;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
 public class DistanceSensor implements HardwareMapDevice {

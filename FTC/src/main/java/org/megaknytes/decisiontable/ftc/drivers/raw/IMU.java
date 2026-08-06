@@ -4,11 +4,13 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.utils.device.InitializedDevice;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
-public class IMU implements HardwareMapDevice {
+public class IMU implements HardwareMapDevice, InitializedDevice {
     private com.qualcomm.robotcore.hardware.IMU imu;
+    private AngleUnit angleUnit = AngleUnit.DEGREES;
     private RevHubOrientationOnRobot.LogoFacingDirection logoFacing;
     private RevHubOrientationOnRobot.UsbFacingDirection usbFacing;
 
@@ -21,27 +23,31 @@ public class IMU implements HardwareMapDevice {
                         () -> logoFacing,
                         (direction) -> {
                             logoFacing = direction;
-                            initializeIfReady();
                         })
                 .addSubParameter("UsbFacing", RevHubOrientationOnRobot.UsbFacingDirection.class,
                         () -> usbFacing,
                         (direction) -> {
                             usbFacing = direction;
-                            initializeIfReady();
-                        });
+                        })
+                .addSubParameter("AngleUnit", AngleUnit.class,
+                        () -> angleUnit,
+                        (unit) -> angleUnit = unit);
     }
 
-    private void initializeIfReady() {
+    @Override
+    public void initialize() {
         if (logoFacing != null && usbFacing != null) {
             imu.initialize(new com.qualcomm.robotcore.hardware.IMU.Parameters(new RevHubOrientationOnRobot(logoFacing, usbFacing)));
+        } else {
+            throw new IllegalStateException("IMU orientation parameters not set. Please configure LogoFacing and UsbFacing before initialization.");
         }
     }
 
     @Override
     public void registerParameters(ParameterRegistry registry) {
-        registry.createParameter(this, "Yaw", Double.class, () -> imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-        registry.createParameter(this, "Pitch", Double.class, () -> imu.getRobotYawPitchRollAngles().getPitch(AngleUnit.DEGREES));
-        registry.createParameter(this, "Roll", Double.class, () -> imu.getRobotYawPitchRollAngles().getRoll(AngleUnit.DEGREES));
+        registry.createParameter(this, "Yaw", Double.class, () -> imu.getRobotYawPitchRollAngles().getYaw(angleUnit));
+        registry.createParameter(this, "Pitch", Double.class, () -> imu.getRobotYawPitchRollAngles().getPitch(angleUnit));
+        registry.createParameter(this, "Roll", Double.class, () -> imu.getRobotYawPitchRollAngles().getRoll(angleUnit));
         registry.createParameter(this, "ResetYaw", Boolean.class, () -> false, (trigger) -> imu.resetYaw());
     }
 

@@ -3,7 +3,7 @@ package org.megaknytes.decisiontable.ftc.drivers.common;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
 import org.megaknytes.decisiontable.ftc.drivers.OpModeDevice;
 
 public class Timer implements OpModeDevice {

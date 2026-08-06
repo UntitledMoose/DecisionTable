@@ -5,8 +5,8 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
-import org.megaknytes.decisiontable.core.utils.UpdatableDevice;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.utils.device.UpdatableDevice;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
 public class ColorSensor implements HardwareMapDevice, UpdatableDevice {

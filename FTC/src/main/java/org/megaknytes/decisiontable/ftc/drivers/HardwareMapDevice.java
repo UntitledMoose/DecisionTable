@@ -2,8 +2,8 @@ package org.megaknytes.decisiontable.ftc.drivers;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.megaknytes.decisiontable.core.utils.Device;
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.utils.device.Device;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
 
 public interface HardwareMapDevice extends Device {
 

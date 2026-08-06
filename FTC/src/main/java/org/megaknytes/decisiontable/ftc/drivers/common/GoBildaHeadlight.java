@@ -3,7 +3,7 @@ package org.megaknytes.decisiontable.ftc.drivers.common;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.megaknytes.decisiontable.core.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
 public class GoBildaHeadlight implements HardwareMapDevice {

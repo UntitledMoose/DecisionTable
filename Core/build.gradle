@@ -11,6 +11,17 @@ java {
     withJavadocJar()
 }
 
+dependencies {
+    // JUnit 5.10.x is the last line that still supports a Java 8 baseline.
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
 publishing {
     publications {
         def configureBasePom = { pub ->
