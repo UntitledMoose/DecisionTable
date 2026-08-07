@@ -5,10 +5,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.megaknytes.decisiontable.core.rule.value.type.registry.ParameterRegistry;
+import org.megaknytes.decisiontable.core.utils.device.InitializedDevice;
 import org.megaknytes.decisiontable.core.utils.device.UpdatableDevice;
 import org.megaknytes.decisiontable.ftc.drivers.HardwareMapDevice;
 
-public class MecanumDrive implements HardwareMapDevice, UpdatableDevice {
+public class MecanumDrive implements HardwareMapDevice, UpdatableDevice, InitializedDevice {
     private DcMotor frontLeft, frontRight, backLeft, backRight;
     private Float x_power = 0.0f, y_power = 0.0f, rx_power = 0.0f, scale = 1.0f;
 
@@ -25,6 +26,19 @@ public class MecanumDrive implements HardwareMapDevice, UpdatableDevice {
 
         registry.createParameter(this, "BackRight", String.class, () -> backRight.getDeviceName(), (backRightName) -> backRight = hardwareMap.get(DcMotor.class, backRightName))
                 .addSubParameter("Direction", DcMotorSimple.Direction.class, () -> backRight.getDirection(), (backRightDirection) -> backRight.setDirection(backRightDirection));
+    }
+
+    @Override
+    public void initialize() {
+        assert frontLeft != null : "Front Left motor is not configured.";
+        assert frontRight != null : "Front Right motor is not configured.";
+        assert backLeft != null : "Back Left motor is not configured.";
+        assert backRight != null : "Back Right motor is not configured.";
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override

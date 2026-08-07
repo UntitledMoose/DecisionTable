@@ -64,7 +64,7 @@
 ### `DecisionTable`
 
 ```xml
-<DecisionTable name="TeleOp" enabled="true" type="TELEOP" systemConfigurationFile="CompetitionRobot" transitionTarget="">
+<DecisionTable name="TeleOp" enabled="true" type="TELEOP" systemConfiguration="CompetitionRobot" transitionTarget="">
     <Rules>
         <RuleGroup name="Drivetrain">
             <Rule name="Drive" priority="0">

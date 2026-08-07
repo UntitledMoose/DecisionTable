@@ -1,5 +1,6 @@
 package org.megaknytes.decisiontable.core;
 
+import org.megaknytes.decisiontable.core.rule.value.snapshot.Snapshot;
 import org.megaknytes.decisiontable.core.rule.Action;
 import org.megaknytes.decisiontable.core.rule.Rule;
 import org.megaknytes.decisiontable.core.utils.device.Device;
@@ -15,10 +16,15 @@ import java.util.Map;
 public final class DecisionTable {
     private final String name;
     private final List<Rule> rules;
+    private final Snapshot snapshot;
 
-    public DecisionTable(String name, List<Rule> rules) {
+    public DecisionTable(String name, List<Rule> rules, Snapshot snapshot) {
         this.name = name;
-        this.rules = Collections.unmodifiableList(rules);
+        this.snapshot = snapshot;
+
+        List<Rule> sorted = new ArrayList<>(rules);
+        sorted.sort(Comparator.comparingInt(Rule::getPriority));
+        this.rules = Collections.unmodifiableList(sorted);
     }
 
     public EvaluationResult evaluate(SystemConfiguration configuration) {
@@ -31,10 +37,12 @@ public final class DecisionTable {
             }
         }
 
+        snapshot.refreshAll();
+
         Map<Rule, List<Action>> matchedRules = new LinkedHashMap<>();
 
         // Evaluate the rules in ascending priority order, to ensure that if a conflict occurs the rule with the higher priority "wins".
-        for (Rule rule : getRulesInPriorityOrder()) {
+        for (Rule rule : rules) {
             if (rule.evaluate()) {
                 matchedRules.put(rule, rule.getActions());
             }
@@ -58,9 +66,7 @@ public final class DecisionTable {
         return name;
     }
 
-    public List<Rule> getRulesInPriorityOrder() {
-        List<Rule> sorted = new ArrayList<>(rules);
-        sorted.sort(Comparator.comparingInt(Rule::getPriority));
-        return sorted;
+    public List<Rule> getRules() {
+        return rules;
     }
 }

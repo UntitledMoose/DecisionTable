@@ -35,11 +35,13 @@ public class FileDiscovery {
 
         if (appContextDir == null) {
             LOGGER.log(Level.SEVERE, "Unable to access app context directory while scanning for device XML files");
+            RobotLog.addGlobalWarningMessage("Unable to access app context directory while scanning for device XML files");
             throw new ConfigurationException("Unable to access app context directory while scanning for device XML files");
         }
 
         if (!userDataDir.exists() && !userDataDir.mkdirs()) {
             LOGGER.log(Level.SEVERE, "Failed to create user data directory while scanning for device XML files");
+            RobotLog.addGlobalWarningMessage("Failed to create user data directory while scanning for device XML files");
             throw new ConfigurationException("Failed to create user data directory while scanning for device XML files");
         }
 
@@ -67,7 +69,8 @@ public class FileDiscovery {
 
             if (enabledSystemConfigurations.containsKey(name)) {
                 LOGGER.log(Level.SEVERE, "Duplicate system configuration name found: " + name);
-                throw new ConfigurationException("Duplicate system configuration name: " + name);
+                RobotLog.addGlobalWarningMessage("Duplicate system configuration name found: " + name);
+                throw new ConfigurationException("Duplicate system configuration name found: " + name);
             }
 
             enabledSystemConfigurations.put(name, xmlFile);
@@ -105,6 +108,7 @@ public class FileDiscovery {
 
             if (systemConfigurationFile == null) {
                 LOGGER.log(Level.SEVERE, "System configuration not found: " + systemConfigurationName);
+                RobotLog.addGlobalWarningMessage("System configuration not found: " + systemConfigurationName);
                 throw new ConfigurationException("System configuration not found: " + systemConfigurationName);
             }
 
@@ -114,6 +118,7 @@ public class FileDiscovery {
                 flavor = OpModeMeta.Flavor.valueOf(root.getAttribute("type"));
             } catch (IllegalArgumentException e) {
                 LOGGER.log(Level.SEVERE, "Invalid Decision Table type in file: " + xmlFile.getAbsolutePath(), e);
+                RobotLog.addGlobalWarningMessage("Invalid Decision Table type in file: " + xmlFile.getAbsolutePath());
                 throw new ConfigurationException("Invalid Decision Table type: " + e.getMessage());
             }
 
@@ -131,6 +136,7 @@ public class FileDiscovery {
             return doc.getDocumentElement();
         } catch (IOException | SAXException e) {
             LOGGER.log(Level.SEVERE, "Error parsing decision table file: " + xmlFile.getAbsolutePath(), e);
+            RobotLog.addGlobalWarningMessage("Error parsing decision table file: " + xmlFile.getAbsolutePath());
             throw new RuntimeException("Error parsing decision table file: " + xmlFile.getAbsolutePath(), e);
         }
     }

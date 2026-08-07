@@ -1,6 +1,7 @@
 package org.megaknytes.decisiontable.core.rule;
 
 import org.megaknytes.decisiontable.core.rule.address.Address;
+import org.megaknytes.decisiontable.core.rule.value.snapshot.SnapshotValue;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -21,7 +22,7 @@ public final class Action {
     }
 
     public void execute() {
-        Object resolved = value.get();
+        Object resolved = value instanceof SnapshotValue ? ((SnapshotValue) value).readLive() : value.get();
 
         if (resolved != null) {
             target.accept(resolved);
