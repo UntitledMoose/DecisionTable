@@ -10,9 +10,7 @@ public class VoltageSensor implements HardwareMapDevice {
 
     @Override
     public void registerConfiguration(HardwareMap hardwareMap, ParameterRegistry registry) {
-        registry.createParameter(this, "HardwareMap", String.class,
-                        () -> voltageSensor.getDeviceName(),
-                        (name) -> voltageSensor = hardwareMap.voltageSensor.iterator().next());
+        voltageSensor = hardwareMap.voltageSensor.iterator().next();
     }
 
     @Override

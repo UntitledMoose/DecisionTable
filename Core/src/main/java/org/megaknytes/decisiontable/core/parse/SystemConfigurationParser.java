@@ -175,7 +175,7 @@ public class SystemConfigurationParser {
      *
      * @param root the document root
      * @param devices the map of instantiated devices to device names
-     * @param parameterRegistry the registry with each devices parameters
+     * @param parameterRegistry the registry with each device's parameters
      * @param configuration the system configuration
      */
     private void registerDevices(Element root, Map<String, Device> devices, ParameterRegistry parameterRegistry, SystemConfiguration configuration) {

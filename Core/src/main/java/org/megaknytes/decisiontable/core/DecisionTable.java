@@ -28,6 +28,7 @@ public final class DecisionTable {
     }
 
     public EvaluationResult evaluate(SystemConfiguration configuration) {
+        long startTime = System.nanoTime();
         Iterable<? extends Device> devices = configuration == null ? Collections.emptyList() : configuration.getDevices().values();
 
         // Update every device once-per-loop that tells us it needs to be updated
@@ -41,7 +42,7 @@ public final class DecisionTable {
 
         Map<Rule, List<Action>> matchedRules = new LinkedHashMap<>();
 
-        // Evaluate the rules in ascending priority order, to ensure that if a conflict occurs the rule with the higher priority "wins".
+        // Evaluate the rules in ascending priority order, to ensure that if a conflict occurs the rule with the highest priority "wins".
         for (Rule rule : rules) {
             if (rule.evaluate()) {
                 matchedRules.put(rule, rule.getActions());
@@ -59,7 +60,7 @@ public final class DecisionTable {
             configuration.advancePreviousValues();
         }
 
-        return new EvaluationResult(matchedRules);
+        return new EvaluationResult(matchedRules, (System.nanoTime() - startTime) / 1_000_000);
     }
 
     public String getName() {

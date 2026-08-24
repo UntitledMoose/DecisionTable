@@ -18,7 +18,7 @@ public final class EvaluationResult {
     private final Map<Rule, List<Action>> matchedRules;
     private final List<Conflict> conflicts;
 
-    public EvaluationResult(Map<Rule, List<Action>> matchedRules) {
+    public EvaluationResult(Map<Rule, List<Action>> matchedRules, long evaluationTimeMillis) {
         this.matchedRules = matchedRules;
         this.conflicts = Conflict.findConflicts(matchedRules);
     }

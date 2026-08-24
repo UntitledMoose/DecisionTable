@@ -29,6 +29,18 @@ public class Gamepad implements OpModeDevice {
                 .addSubParameter("Start", Boolean.class, () -> gamepad.start)
                 .addSubParameter("Back", Boolean.class, () -> gamepad.back);
 
+        registry.createParameterGroup(this, "ButtonPressed")
+                .addSubParameter("A", Boolean.class, () -> gamepad.aWasPressed())
+                .addSubParameter("B", Boolean.class, () -> gamepad.bWasPressed())
+                .addSubParameter("X", Boolean.class, () -> gamepad.xWasPressed())
+                .addSubParameter("Y", Boolean.class, () -> gamepad.yWasPressed())
+                .addSubParameter("LeftBumper", Boolean.class, () -> gamepad.leftBumperWasPressed())
+                .addSubParameter("RightBumper", Boolean.class, () -> gamepad.rightBumperWasPressed())
+                .addSubParameter("LeftStickPress", Boolean.class, () -> gamepad.leftStickButtonWasPressed())
+                .addSubParameter("RightStickPress", Boolean.class, () -> gamepad.rightStickButtonWasPressed())
+                .addSubParameter("Start", Boolean.class, () -> gamepad.startWasPressed())
+                .addSubParameter("Back", Boolean.class, () -> gamepad.backWasPressed());
+
         registry.createParameterGroup(this, "Trigger")
                 .addSubParameter("LeftTrigger", Float.class, () -> gamepad.left_trigger)
                 .addSubParameter("RightTrigger", Float.class, () -> gamepad.right_trigger);

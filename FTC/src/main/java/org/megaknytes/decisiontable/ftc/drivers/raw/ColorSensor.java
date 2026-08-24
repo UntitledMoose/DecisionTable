@@ -18,7 +18,7 @@ public class ColorSensor implements HardwareMapDevice, UpdatableDevice {
 
     private double red, green, blue, alpha;
     private double hue, saturation, value;
-    private boolean matches;
+    private boolean detected;
 
     @Override
     public void registerConfiguration(HardwareMap hardwareMap, ParameterRegistry registry) {
@@ -49,7 +49,7 @@ public class ColorSensor implements HardwareMapDevice, UpdatableDevice {
         registry.createParameter(this, "Saturation", Double.class, () -> saturation);
         registry.createParameter(this, "Value", Double.class, () -> value);
 
-        registry.createParameter(this, "Matches", Boolean.class, () -> matches);
+        registry.createParameter(this, "Detected", Boolean.class, () -> detected);
     }
 
     @Override
@@ -71,6 +71,6 @@ public class ColorSensor implements HardwareMapDevice, UpdatableDevice {
         saturation = hsv[1];
         value = hsv[2];
 
-        matches = hue >= hueMin && hue <= hueMax && saturation >= saturationMin && saturation <= saturationMax && value >= valueMin && value <= valueMax;
+        detected = hue >= hueMin && hue <= hueMax && saturation >= saturationMin && saturation <= saturationMax && value >= valueMin && value <= valueMax;
     }
 }

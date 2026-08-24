@@ -104,7 +104,7 @@ public class FtcDecisionTable {
         }
     }
 
-    private void initializeDecisionTable(OpMode opMode, DecisionTableFile ruleset) {
+    public void initializeDecisionTable(OpMode opMode, DecisionTableFile ruleset) {
         reset();
         currentOpMode = opMode;
 
@@ -122,26 +122,13 @@ public class FtcDecisionTable {
         }
     }
 
-    private void update() {
-        long startTime = System.nanoTime();
-
-        if (currentTable == null) {
-            return;
+    public EvaluationResult update() {
+        EvaluationResult result = null;
+        if (currentTable != null && currentOpMode != null) {
+            result = currentTable.evaluate(currentSystemConfiguration);
         }
 
-        EvaluationResult result = currentTable.evaluate(currentSystemConfiguration);
-
-        if (currentOpMode == null) {
-            return;
-        }
-
-        currentOpMode.telemetry.addData("Rules Matched", result.getMatchedRuleNames());
-
-        if (!result.getConflicts().isEmpty()) {
-            currentOpMode.telemetry.addData("Conflicts", result.getConflicts().stream().map(Object::toString).collect(Collectors.joining("; ")));
-        }
-
-        currentOpMode.telemetry.addData("Evaluation Time (ms)", (System.nanoTime() - startTime) / 1_000_000);
+        return result;
     }
 
     public static void reset() {
